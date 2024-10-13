@@ -1,4 +1,4 @@
-##### Meteorite App #####
+##### Meteorite App #####150
 
 # Dependencies
 library(shiny)
@@ -7,9 +7,9 @@ library(leaflet)
 library(bslib)
 library(scico)
 library(plotly)
-library(GWalkR)
 library(DT)
 # Load Data
+#meteorite_file <- "C:/Github/App-A-Day/01_meteorites/Meteorite_Landings.csv"
 meteorite_file <- "Meteorite_Landings.csv"
 # Rename variables for clarity and omit NAs
 met_dat <- read.csv(meteorite_file) %>%
@@ -17,7 +17,6 @@ met_dat <- read.csv(meteorite_file) %>%
          lat = reclat,
          lon = reclong) %>%
   mutate(nametype = as.factor(nametype),
-         recclass = as.factor(recclass),
          fall = as.factor(fall),
          id = as.factor(id)) %>%
   filter(mass > 0) %>%
@@ -27,6 +26,11 @@ met_vars <- c(
   "Mass" = "mass",
   "Year" = "year"
 )
+# Get each unique meteorite class
+met_classes <- met_dat[!duplicated(met_dat$recclass),]$recclass
+met_classes <- met_classes[order(met_classes)]
+met_classes <- c(met_classes, "None")
+met_classes <- as.factor(met_classes)
 # Get outliers for mass
 Qmass <- quantile(met_dat$mass, probs=c(.25, .75))
 iqr_mass <- IQR(met_dat$mass)
@@ -38,11 +42,12 @@ ui <- navbarPage("Meteorite Landings",
                  theme = bs_theme(bootswatch = "sandstone"),
                  sidebar = sidebar(
                    markdown("##### **Global Settings**"),
+                   selectInput("palette", "Select Color Palette", p_pals, selected = "lipari"),
                    checkboxInput("extremes", "Exclude Extremes", TRUE),
                    checkboxInput("outliers", "Exclude Outliers", FALSE),
-                   selectInput("palette", "Select Color Palette", p_pals, selected = "acton"),
                    numericInput("date_min", "Date Range Start", min=0, max=2024, value = 1975),
                    numericInput("date_max", "Date Range End", min=0, max=2024, value=2024),
+                   selectInput("class_filter", "Filter by Meteorite Class", met_classes, selected = "None" )
                  ),
         nav_panel("Map",
           card(layout_sidebar(
@@ -53,7 +58,10 @@ ui <- navbarPage("Meteorite Landings",
             ),
             card_body(leafletOutput("map"), height=800)
           )
-          )
+          ),
+          card(markdown("This map is made using R Shiny, leaflet, and meteorite landing data from
+                          [Data.gov](https://catalog.data.gov/dataset/meteorite-landings) and shows over 38,000
+                          meteorite landing locations."))
           ),
         nav_panel("Plots",
             card("Histograms",
@@ -72,14 +80,20 @@ ui <- navbarPage("Meteorite Landings",
               card(card_header("Mass Histogram"),
               plotlyOutput("mass_hist")
               )
-              )))
+              ),
+            layout_column_wrap(
+              card(card_header("Latitude Histogram"),
+                   plotlyOutput("lat_hist")
+              ),
+              card(card_header("Longitude Histogram"),
+                   plotlyOutput("lon_hist")
+              )
+            )
+            ))
           ),
         nav_panel("Data Explorer",
                   card(
                     DTOutput("met_DT")
-                  ),
-                  card(gwalkrOutput("met_gwalk"),
-                       card_body(markdown("For more information on using GWalkR's Tableau-style visualizations please see the author's [Github repo](https://github.com/Kanaries/GWalkR)."))
                   )
                   ),
         nav_spacer(),
@@ -108,6 +122,9 @@ server <- function(input, output) {
                         mass < (Qmass[2] + 1.5 * iqr_mass)
                       )
     }
+    if (input$class_filter != "None") {
+      m_dat <- subset(m_dat, recclass == input$class_filter)
+    }
     return(m_dat)
   })
   
@@ -135,7 +152,7 @@ server <- function(input, output) {
     colorBy <- input$color
     sizeBy <- input$size
       colordat <- Rmet_dat()[[colorBy]]
-      pal <- colorBin(scico(length(colordat), begin = 0.8, end = 0,
+      pal <- colorBin(scico(length(colordat), begin = 0, end = 0.8,
                                palette = Rpalette(), categorical = FALSE),
                          colordat)
         radius <- Rmet_dat()[[sizeBy]] / max(Rmet_dat()[[sizeBy]]) * 100000
@@ -179,8 +196,10 @@ server <- function(input, output) {
       `Mass Bins` <- cut(mass, bins)
       m_hist <- ggplot(data = Rmet_dat(), aes(x = mass, fill = `Mass Bins`, color = `Mass Bins`))+
                     geom_histogram(bins = Rbins())+
-                    scale_fill_scico_d(begin=0.8, end=0, palette=Rpalette())+
-                    scale_color_scico_d(begin=0.8, end=0, palette=Rpalette())
+                    scale_fill_scico_d(begin=0, end=0.8, palette=Rpalette())+
+                    scale_color_scico_d(begin=0, end=0.8, palette=Rpalette())+
+                    theme_bw()+
+                    xlab("mass (grams)")
       m_hist <- ggplotly(m_hist)
       return(m_hist)
   })
@@ -192,16 +211,41 @@ server <- function(input, output) {
     `Year Bins` <- cut(year, bins)
     y_hist <- ggplot(data = Rmet_dat(), aes(x = year, fill = `Year Bins`, color = `Year Bins`))+
       geom_histogram(bins = Rbins()+1)+
-      scale_fill_scico_d(begin=0.8, end=0, palette=Rpalette())+
-      scale_color_scico_d(begin=0.8, end=0, palette=Rpalette())
+      scale_fill_scico_d(begin=0, end=0.8, palette=Rpalette())+
+      scale_color_scico_d(begin=0, end=.8, palette=Rpalette())+
+      theme_bw()
     y_hist <- ggplotly(y_hist)
     return(y_hist)
   })
-  # GWalkR
-  output$met_gwalk <- renderGwalkr({
-    gwalkr(Rmet_dat())
+  ## Longitude histogram
+  output$lon_hist <- renderPlotly({
+    options(scipen = 999)
+    lon <- Rmet_dat()$lon
+    bins <- seq(min(lon), max(lon), length.out = Rbins() + 1)
+    `Longitude Bins` <- cut(lon, bins)
+    lon_hist <- ggplot(data = Rmet_dat(), aes(x = lon, fill = `Longitude Bins`, color = `Longitude Bins`))+
+      geom_histogram(bins = Rbins()+1)+
+      scale_fill_scico_d(begin=0, end=0.8, palette=Rpalette())+
+      scale_color_scico_d(begin=0, end=.8, palette=Rpalette())+
+      theme_bw()
+    lon_hist <- ggplotly(lon_hist)
+    return(lon_hist)
   })
-  
+  ## Latitude histogram
+  output$lat_hist <- renderPlotly({
+    options(scipen = 999)
+    lat <- Rmet_dat()$lat
+    bins <- seq(min(lat), max(lat), length.out = Rbins() + 1)
+    `Latitude Bins` <- cut(lat, bins)
+    lat_hist <- ggplot(data = Rmet_dat(), aes(x = lat, fill = `Latitude Bins`, color = `Latitude Bins`))+
+      geom_histogram(bins = Rbins()+1)+
+      scale_fill_scico_d(begin=0, end=0.8, palette=Rpalette())+
+      scale_color_scico_d(begin=0, end=.8, palette=Rpalette())+
+      theme_bw()
+    lat_hist <- ggplotly(lat_hist)
+    return(lat_hist)
+  })
+
   output$met_DT <- renderDT({
     Rmet_dat()
   })
