@@ -6,4 +6,4 @@ For day one I created an R Shiny app that uses meteorite data taken from [Data.g
 
 ![Screenshot](../App-A-Day/01_meteorites/01_screenshot.png)
 
-For more information, see the day one [README](../App-A-Day/README.md)
+For more information, see the day one [README](../App-A-Day/01_meteorites/README.md)
