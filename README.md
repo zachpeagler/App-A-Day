@@ -9,9 +9,11 @@ For day one I created an R Shiny app that uses meteorite data taken from [Data.g
 For more information, see the day one [README](/01_meteorites/README.md).
 
 ## **DAY TWO - 10/13/2024**
-For day two I created a distribution fitting app. (It's still in progress)
+For day two I created a distribution fitting app. It takes a variable and fits it across a series of specified distributions. I made functions to fit both the probability density function (PDF) and cumulative distribution function (CDF) and returned both of them as interactive plots. I also made a function to perform a series of Kolmogorov-Smirnov tests against a chosen variable, which returns a table with the distance and pvalue for the desired distributions.
 
-I used example data taken from [Data.gov](https://catalog.data.gov/dataset/supply-chain-greenhouse-gas-emission-factors-v1-3-by-naics-6)
+This distribution fitter is for **continuous** distributions only. I'll add discrete distributions later as a separate function.
+
+I used data from [Data.gov](https://catalog.data.gov/dataset/data-from-plant-strategies-for-maximizing-growth-during-drought-and-drought-recovery-in-so-98fae) from a paper titled "Plant strategies for maximizing growth during drought and drought recovery in Solanum melongena L. (eggplant)" and features data from a study about eggplant drought recovery that has several continuous biological response variables that can be used for fitting continuous distributions.
 
 ![Screenshot](/02_distribution_fitter/02screenshot.png)
 
