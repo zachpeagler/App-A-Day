@@ -4,7 +4,9 @@
 ![year](https://img.shields.io/badge/year-2024-darkblue)
 ![new](https://img.shields.io/badge/lifecycle-new-brightgreen)
 
-![App Screenshot](01_screenshot.png)
+![App Screenshot](01_screenshot_map.png)
+
+![App Screenshot 2](01_screenshot_plots.png)
 
 # Links
 [Link](https://zachpeagler.shinyapps.io/01_meteorites)
