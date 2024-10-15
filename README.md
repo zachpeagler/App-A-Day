@@ -15,7 +15,7 @@ This distribution fitter is for **continuous** distributions only. I'll add disc
 
 I used data from [Data.gov](https://catalog.data.gov/dataset/data-from-plant-strategies-for-maximizing-growth-during-drought-and-drought-recovery-in-so-98fae) from a paper titled "Plant strategies for maximizing growth during drought and drought recovery in Solanum melongena L. (eggplant)" and features data from a study about eggplant drought recovery that has several continuous biological response variables that can be used for fitting continuous distributions.
 
-![Screenshot](/02_distribution_fitter/02screenshot.png)
+![Screenshot](/02_distribution_fitter/02_screenshot.png)
 
 For more informaiton, see the day two [README](/02_distribution_fitter/README.md).
 
@@ -25,3 +25,12 @@ For day three I created an interactive scatter plot app using the iris dataset i
 ![Screenshot](/03_scatter/03screenshot.png)
 
 For more information, see the day three [README](/03_scatter/README.md)
+
+## **DAY FOUR - 10/15/2024**
+For day four I created an app looking at the most popular baby names by year and gender as a bar plot. I also added a scatter plot showing the change in a name's popularity over time.
+
+The data for this can be found [here](https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-data). This example data contains *all* the registered names in the United States with more than 5 occurrences since 1880.
+
+#### From the data's readme
+
+I may also do a chi-square or other appropriate statistical analysis to see what names are significantly different from expected.

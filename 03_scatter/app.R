@@ -1,3 +1,8 @@
+# Interactive Scatter Plot
+## App A Day - Day 3
+## Zach Peagler
+## 10/14/2024
+
 # dependencies
 library(shiny)
 library(tidyverse)

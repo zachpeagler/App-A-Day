@@ -1,4 +1,7 @@
-##### Meteorite App #####150
+# Meteorite Landings App
+## App A Day - Day 1
+## Zach Peagler
+## 10/12/2024
 
 # Dependencies
 library(shiny)
