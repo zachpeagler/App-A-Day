@@ -1,5 +1,7 @@
-## AppADay_03_distribution_fitter
+# Distribution Fitter
+## App A Day - Day 2
 ## Zach Peagler
+## 10/13/2024
 
 # dependencies
 library(shiny)
@@ -14,8 +16,7 @@ library(plotly)
 deployment_file <- "eggplant_data.csv"
 #tfile <- "C:/Github/App-A-Day/02_distribution_fitter/eggplant_data.csv"
 dat <- read.csv(deployment_file)
-#test data
-data <- read.csv(tfile)
+
 # make data objects
 ## variables to filter data with
 waterfilters <- c("Control",
@@ -357,6 +358,7 @@ ui <- navbarPage(title = "Distribution Fitter",
          )))),
        nav_panel("KS Tests",
        card(card_header("Kolmogorov-Smirnov test results", class = "bg-primary"),
+            width = 200,
             verbatimTextOutput("ks"))),
        nav_panel("Info",
        card(card_header("Info", class = "bg-info"),
