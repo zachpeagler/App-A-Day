@@ -15,7 +15,7 @@ This distribution fitter is for **continuous** distributions only. I'll add disc
 
 I used data from [Data.gov](https://catalog.data.gov/dataset/data-from-plant-strategies-for-maximizing-growth-during-drought-and-drought-recovery-in-so-98fae) from a paper titled "Plant strategies for maximizing growth during drought and drought recovery in Solanum melongena L. (eggplant)" and features data from a study about eggplant drought recovery that has several continuous biological response variables that can be used for fitting continuous distributions.
 
-![Screenshot](/02_distribution_fitter/02_screenshot.png)
+![Screenshot](/02_distribution_fitter/02screenshot.png)
 
 For more informaiton, see the day two [README](/02_distribution_fitter/README.md).
 
@@ -29,8 +29,17 @@ For more information, see the day three [README](/03_scatter/README.md)
 ## **DAY FOUR - 10/15/2024**
 For day four I created an app looking at the most popular baby names by year and gender as a bar plot. I also added a scatter plot showing the change in a name's popularity over time.
 
-The data for this can be found [here](https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-data). This example data contains *all* the registered names in the United States with more than 5 occurrences since 1880.
+The data for this can be found [here](https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-data). This example data contains *all* the registered names in the United States with more than 5 occurrences since 1880. It was last updated on March 3, 2024.
 
-#### From the data's readme
+#### From the National Data on U.S. Birth Name's readme
+
+>For each year of birth YYYY after 1879, we created a comma-delimited file called yobYYYY.txt.
+Each record in the individual annual files has the format "name,sex,number," where name is 2 to 15
+characters, sex is M (male) or F (female) and "number" is the number of occurrences of the name.
+Each file is sorted first on sex and then on number of occurrences in descending order. When there is
+a tie on the number of occurrences, names are listed in alphabetical order. This sorting makes it easy to
+determine a name's rank. The first record for each sex has rank 1, the second record for each sex has
+rank 2, and so forth.
+To safeguard privacy, we restrict our list of names to those with at least 5 occurrences. 
 
 I may also do a chi-square or other appropriate statistical analysis to see what names are significantly different from expected.
