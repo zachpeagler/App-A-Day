@@ -18,7 +18,6 @@ bn_file <- "C:/Github/App-A-Day/04_baby_names/Top50BabyNames1880to2024.csv"
 # import data
 bn_data <- read.csv(bn_file)
 
-
 data <- bn_data %>%
   group_by(Name) %>%
   summarise_at(vars(Count), list(sum))
@@ -27,7 +26,8 @@ data <- bn_data %>%
 names <- bn_data[!duplicated(bn_data$Name),2]
 ## genders
 gender_filt <- c("F", "M")
-
+## palettes
+palettes <- scico_palette_names()
 # UI
 ui <- navbarPage("Baby Names",
                  theme = bs_theme(bootswatch = "litera"),
@@ -40,7 +40,9 @@ ui <- navbarPage("Baby Names",
                    numericInput("date_min", "Start Date", min = 1880, max = 2024,
                                 value = 1880),
                    numericInput("date_max", "End Date", min = 1880, max = 2024,
-                                value = 2024)
+                                value = 2024),
+                   selectInput("palette", "Select Color Palette", palettes,
+                               selected = "oslo")
                  ),
                  nav_panel("Scatter",
                    card("Scatter Plot of Baby Names by Year",
@@ -55,14 +57,7 @@ ui <- navbarPage("Baby Names",
                                plotlyOutput("topnames_bar")),
                              card("Least Common Names",
                              plotlyOutput("leastnames_bar"))
-                           )),
-                           card("Change in name over year",
-                            layout_sidebar(sidebar = sidebar(
-                              selectInput("change_name", "Select Name", names, selected = "Mary")
-                            ),
-                             plotlyOutput("change_plot")
-                            )
-                           )
+                           ))
                  ),
                  nav_panel("Data",
                            DTOutput("data")
@@ -73,6 +68,7 @@ ui <- navbarPage("Baby Names",
 server <- function(input, output) {
 # Reactive functions
   Rn_names <- reactive({input$n_names})
+  Rpal <- reactive({input$palette})
   Rdat <- reactive({
     ## make data object
     data <- bn_data
@@ -105,7 +101,7 @@ server <- function(input, output) {
     data <- Rhead()
     p <- plot_ly(data, x = ~Year, y = ~Count, color=~Name, 
                 colors = scico(length(data$Name), begin = 0, end = 0.8,
-                               palette = "lipari"))
+                               palette = Rpal()))
       
     })
 # Bars page
@@ -123,31 +119,38 @@ server <- function(input, output) {
         summarise_at(vars(Count), list(sum))
       data <- data[order(data$Count, decreasing = TRUE),] %>%
         head(n=Rn_names())
-      ## correct x axis order
-      xcorrect <- list(categoryorder = "array",
-                       categoryarray = data[order(data$Count, decreasing = TRUE),]$Name)
       p <- ggplot(data, aes(x=Name, y=Count, fill=Count))+
             geom_col()+
-            scale_fill_scico(begin = 0, end = 0.8, palette = "lipari")+
+            scale_fill_scico(begin = 0, end = 0.8, palette = Rpal())+
             theme_bw()+
             theme(
               axis.text.x = element_text(size=12, angle=45, lineheight=1, hjust=1, vjust=1)
             )
-      p <- ggplotly(p) %>% layout(xaxis = xcorrect)
+      p <- ggplotly(p)
       return(p)
     })
 ## Least common names
     output$leastnames_bar <- renderPlotly({
-      
+      data <- Rdat() %>%
+        group_by(Name) %>%
+        summarise_at(vars(Count), list(sum))
+      data <- data[order(data$Count, decreasing = TRUE),] %>%
+        tail(n=Rn_names())
+      p <- ggplot(data, aes(x=Name, y=Count, fill=Count))+
+        geom_col()+
+        scale_fill_scico(begin = 0, end = 0.8, palette = Rpal())+
+        theme_bw()+
+        theme(
+          axis.text.x = element_text(size=12, angle=45, lineheight=1, hjust=1, vjust=1)
+        )
+      p <- ggplotly(p)
+      return(p)
     })
-## Change in a name over time
-    output$change_plot <- renderPlotly({
-      
-    })
+
     
 ## data output for Data page
     output$data <- renderDT({
-      
+      Rdat()[,2:4]
     })
 }
 
