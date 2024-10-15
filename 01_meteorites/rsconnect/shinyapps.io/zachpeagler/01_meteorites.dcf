@@ -5,9 +5,9 @@ account: zachpeagler
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 12999959
-bundleId: 9215743
+bundleId: 9222586
 url: https://zachpeagler.shinyapps.io/01_meteorites/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: 01_qrcode.png|01_screenshot.png|DESCRIPTION.txt|LICENSE|README.md
+ignoredFiles: 01_qrcode.png|01_screenshot.png|DESCRIPTION.txt|LICENSE|README.md|SCRIPT_LONG.md
