@@ -35,6 +35,12 @@ For more information, see the day three [README](/03_scatter/README.md)
 ## **DAY FOUR - 10/15/2024**
 For day four I created an app looking at the most popular baby names by year and gender as a bar plot. I also added a scatter plot showing the change in a name's popularity over time.
 
+This required some extensive data wrangling, which can be found as its own script [here](/04_baby_names/data_wrangling.R).
+
+![screenshot04_1](/04_baby_names/05_screenshot_scatter.png)
+
+![screenshot04_2](/04_baby_names/05_screenshot_bar.png)
+
 The data for this can be found [here](https://catalog.data.gov/dataset/baby-names-from-social-security-card-applications-national-data). This example data contains *all* the registered names in the United States with more than 5 occurrences since 1880. It was last updated on March 3, 2024.
 
 #### From the National Data on U.S. Birth Name's readme
