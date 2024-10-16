@@ -1,26 +1,18 @@
-# Top Baby Names App
+# Baby Name Percent Change by Year
 [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)](https://opensource.org/license/mit)
 ![experimental](https://img.shields.io/badge/lifecycle-experimental-orange)
 ![year](https://img.shields.io/badge/year-2024-darkblue)
 ![new](https://img.shields.io/badge/lifecycle-new-brightgreen)
 
-![App Screenshot](/04_baby_names/04_screenshot_scatter.png)
-
-![App Screenshot 2](/04_baby_names/04_screenshot_bar.png)
-
-![App Screenshot 3](/04_baby_names/04_screenshot_data.png)
+![App Screenshot](/)
 
 # Links
 
-Unfortunately this app is not hosted due to my shinyapp limits. However, you can download this repository and run it in Rstudio yourself!
-
-## QR Code
-
-![QRCode](/04_baby_names/04_qrcode_gh.png)
+Unfortunately this app is not hosted due to shinyapp limits. However, you can download this repository and run it in Rstudio yourself!
 
 
 # Description
-This was created for day 4 of my App A Day series!
+This was created for day 5 of my App A Day series!
 
 For day 4 I created an app looking at the most popular baby names by year and gender as a bar plot. I also added a scatter plot showing the change in a name's popularity over time.
 

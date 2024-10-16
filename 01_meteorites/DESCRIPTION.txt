@@ -9,6 +9,6 @@ Description: This app takes meteorite landing data from Data.gov and plots it on
 DisplayMode: Normal
 URL: https://zachpeagler.shinyapps.io/01_meteorites
 BugReports: https://github.com/zachpeagler/AppADay/issues
-License: CC-BY-NC-SA-4.0
-Tags: R, Python, Shiny, ggplot
+License: MIT
+Tags: R, Shiny, ggplot
 Type: Shiny

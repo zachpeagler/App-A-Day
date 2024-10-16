@@ -1,10 +1,15 @@
 # Distribution Fitter
+[![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)](https://opensource.org/license/mit)
+![experimental](https://img.shields.io/badge/lifecycle-experimental-orange)
+![year](https://img.shields.io/badge/year-2024-darkblue)
 
+Zach Peagler <br>
+App A Day - Day 2 <br>
+10/13/2024
+## Description
 Today I wanted to make a useful function that will help me in all my analyses down the line, a distribution fitting function!. No doubt these already exist, but making one specific to my needs is a great exercise and who knows, maybe it'll actually be good and I can release it as a package on CRAN or something.
 
 This distribution fitter is for **continuous** distributions only. I'll add discrete distributions later as a separate function.
-
-![Screenshot](02screenshot.png)
 
 ## Links
 
@@ -13,7 +18,9 @@ This distribution fitter is for **continuous** distributions only. I'll add disc
 | [Shinyapps](https://zachpeagler.shinyapps.io/02_distribution_fitter/) | [Github](https://github.com/zachpeagler/App-A-Day/tree/main/02_distribution_fitter)|
 |<img src="02qrcode_s.png" alt="sQRcode" height = 200 width = 200/>|<img src="02qrcode_gh.png" alt="sQRcode" height = 200 width = 200/>|
 
-
+### Screenshots
+#### Distribution Plots
+![Screenshot](02screenshot.png)
 
 ## Functions
 

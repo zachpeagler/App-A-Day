@@ -1,4 +1,8 @@
 # Interactive Scatter Plot
+[![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)](https://opensource.org/license/mit)
+![experimental](https://img.shields.io/badge/lifecycle-experimental-orange)
+![year](https://img.shields.io/badge/year-2024-darkblue)
+![new](https://img.shields.io/badge/lifecycle-new-brightgreen)
 
 This interactive scatter plot was built for day 3 of my App A Day series.
 

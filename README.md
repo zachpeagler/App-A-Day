@@ -1,4 +1,8 @@
 # App A Day
+[![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)](https://opensource.org/license/mit)
+![experimental](https://img.shields.io/badge/lifecycle-maturing-lightblue)
+![year](https://img.shields.io/badge/year-2024-darkblue)
+
  Hello, I'm Zach Peagler and I'm creating an app a day until I get hired as a data scientist.
 
 ## **DAY ONE - 10/12/2024**
@@ -45,3 +49,6 @@ rank 2, and so forth.
 To safeguard privacy, we restrict our list of names to those with at least 5 occurrences. 
 
 I may also do a chi-square or other appropriate statistical analysis to see what names are significantly different from expected.
+
+## **DAY FIVE - 10/16/2024**
+An app looking at the percent change by year of baby names in the United States.
